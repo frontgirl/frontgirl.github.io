@@ -719,7 +719,7 @@ if (!window.clearImmediate) {
 
     /* Actually draw the text on the grid */
     var drawText = function drawText(gx, gy, info, word, weight,
-                                     distance, theta, rotateDeg, attributes) {
+                                     distance, theta, rotateDeg, attributes, link) {
 
       var fontSize = info.fontSize;
       var color;
@@ -794,7 +794,7 @@ if (!window.clearImmediate) {
           ctx.restore();
         } else {
           // drawText on DIV element
-          var span = document.createElement('span');
+          var span = document.createElement('a');
           var transformRule = '';
           transformRule = 'rotate(' + (- rotateDeg / Math.PI * 180) + 'deg) ';
           if (info.mu !== 1) {
@@ -824,6 +824,9 @@ if (!window.clearImmediate) {
             styleRules.color = color;
           }
           span.textContent = word;
+          if (link) {
+            span.href = link;
+          }
           for (var cssProp in styleRules) {
             span.style[cssProp] = styleRules[cssProp];
           }
@@ -902,10 +905,11 @@ if (!window.clearImmediate) {
        calculate it's size and determine it's position, and actually
        put it on the canvas. */
     var putWord = function putWord(item) {
-      var word, weight, attributes;
+      var word, weight, link, attributes;
       if (Array.isArray(item)) {
         word = item[0];
         weight = item[1];
+        link = item[2];
       } else {
         word = item.word;
         weight = item.weight;
@@ -954,7 +958,7 @@ if (!window.clearImmediate) {
 
         // Actually put the text on the canvas
         drawText(gx, gy, info, word, weight,
-                 (maxRadius - r), gxy[2], rotateDeg, attributes);
+                 (maxRadius - r), gxy[2], rotateDeg, attributes, link);
 
         // Mark the spaces on the grid as filled
         updateGrid(gx, gy, gw, gh, info, item);

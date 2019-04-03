@@ -124,13 +124,34 @@ $(function(){
     }
 
     ctx.putImageData(newImageData, 0, 0);
-    console.log(maskCanvas);
+    //console.log(maskCanvas);
     run();
   };
 
   const run = function run() {
 
-    const devicePixelRatio = ('devicePixelRatio' in window) ? window.devicePixelRatio : 1;
+
+    $('#search-control').on('keyup',function() {
+      $('#search-control').trigger('highlight.clear');
+      const query = $(this).val().trim();
+      if (query.length > 0){
+        $('#html-canvas').find('span, a').each((i, el)=>{
+          if ($(el).text().includes(query)){
+            $(el).addClass('highlighted');
+          }
+        });
+      }
+
+
+
+    });
+    $('#search-control').on('highlight.clear',function() {
+      $('#html-canvas').find('span.highlighted, a.highlighted').removeClass('highlighted');
+    });
+
+
+
+    const devicePixelRatio = 1; //('devicePixelRatio' in window) ? window.devicePixelRatio : 1;
 
     // Set the width and height
     const width = $('#canvas-container').width();
@@ -170,7 +191,7 @@ $(function(){
         // This list of the word "Love" in language of the world was taken from
         // the Language links of entry "Love" in English Wikipedia, with duplicate
         // spelling removed.
-        const words = ('Liebe,ፍቅር,Lufu,حب,Aimor,Amor,Heyran,ভালোবাসা,Каханне,Любоў,Любов,བརྩེ་དུང་།,' +
+        const words = ('Liebe @Liebe, Lufu @Lufu,حب,Aimor @Aimor,Amor @Amor,Heyran @Heyran,ভালোবাসা,Каханне,Любоў,Любов,བརྩེ་དུང་།,' +
         'Ljubav,Karantez,Юрату,Láska,Amore,Cariad,Kærlighed,Armastus,Αγάπη,Amo,Amol,Maitasun,' +
         'عشق,Pyar,Amour,Leafde,Gràdh,愛,爱,પ્રેમ,사랑,Սեր,Ihunanya,Cinta,ᑕᑯᑦᓱᒍᓱᑉᐳᖅ,Ást,אהבה,' +
         'ಪ್ರೀತಿ,სიყვარული,Махаббат,Pendo,Сүйүү,Mīlestība,Meilė,Leefde,Bolingo,Szerelem,' +
@@ -182,14 +203,26 @@ $(function(){
 
         return nums.reduce((arr, weight) =>{
           arr.push(...words.map((string) =>{
-            return [string, weight];
+            const parts = string.split(' ');
+            if (parts.length > 1){
+              return [parts[0], weight, parts[1]];
+            } else {
+              return [string, weight];
+            }
           }));
           return arr;
         }, []);
       })(),
       shape: 'square'
+      // click: function(item, dimension, event){
+      //   console.log(item);
+      //   if (item[2]){
+      //     $(`a[href="${item[2]}"]`)[0].click();
+      //   }
+      //
+      // }
     };
-    console.log(options);
+    // console.log(options);
 
     // Set devicePixelRatio options
     if (devicePixelRatio !== 1) {
@@ -218,9 +251,8 @@ $(function(){
         options.weightFactor *= devicePixelRatio;
       }
     }
-    console.log(maskCanvas);
+    // console.log(maskCanvas);
     if (maskCanvas) {
-      console.log('mask canvas go!')
       options.clearCanvas = false;
 
       /* Determine bgPixel by creating
@@ -274,6 +306,9 @@ $(function(){
     // Order matters here because the HTML canvas might by
     // set to display: none.
     WordCloud([$canvas[0], $htmlCanvas[0]], options);
+    // $canvas.addClass('hide');
+    // $htmlCanvas.removeClass('hide');
   };
+
 
 });

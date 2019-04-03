@@ -97,9 +97,53 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+body{
+  font-family: 'Roboto Condensed', sans-serif;
+}
 
+#canvas-container {
+  overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+  max-width: 940px;
+  min-height: 611px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -50px;
+  background: url(../img/dog-phrase2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.canvas {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+.canvas.hide{
+  display: none;
+}
+.canvas a{
+  transition: .2s color;
+}
+.search{
+  width: 500px;
+  margin: 10px auto 0;
+  position: relative;
+  z-index: 1;
+}
+.search-form{
+  width: 100%;
+}
+.search-form__control{
+  width: 100%;
+  height: 40px;
+}
+.search-form__label{
+  display: block;
+}
 
-
+.highlighted{
+  color: #f2665c!important;
+}
 
 
 
@@ -285,9 +329,4 @@ textarea {
     h3 {
         page-break-after: avoid;
     }
-}
-
-
-.text{
-
 }

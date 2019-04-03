@@ -10,42 +10,26 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
-
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
 
   <meta name="theme-color" content="#fafafa">
-  <style>
-    #canvas-container {
-      overflow-x: auto;
-      overflow-y: visible;
-      position: relative;
-      max-width: 940px;
-      margin-left: auto;
-      margin-right: auto;
-      background: url(img/dog-phrase2.png) no-repeat;
-      background-size: 100% 100%;
-    }
-    .canvas {
-      display: block;
-      position: relative;
-      overflow: hidden;
-    }
-    .canvas.hide{
-      display: none;
-    }
-
-  </style>
 </head>
 
 <body>
   <!--[if lte IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-
+  <div class="search">
+    <form class="search-form" id="search-form">
+      <label for="search-control" class="search-form__label">Найти имя</label>
+      <input type="search" class="search-form__control" id="search-control" placeholder="Например, ivanova">
+    </form>
+  </div>
   <div class="span12" id="canvas-container">
-    <canvas id="canvas" class="canvas"></canvas>
-    <div id="html-canvas" class="canvas hide"></div>
+    <canvas id="canvas" class="canvas hide"></canvas>
+    <div id="html-canvas" class="canvas"></div>
   </div>
 
 
