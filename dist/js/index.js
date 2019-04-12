@@ -179,7 +179,7 @@ $(function(){
       weightFactor: function (size) {
         return Math.pow(size, 2.3) * $('#canvas').width() / 1024;
       },
-      fontFamily: 'Times, serif',
+      fontFamily: '"Roboto Condensed", sans-serif',
       color: function (word, weight) {
         return (weight === 4) ? '#efedaf' : '#ffffff';
       },
